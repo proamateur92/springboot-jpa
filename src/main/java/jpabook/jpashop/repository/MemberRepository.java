@@ -1,15 +1,14 @@
 package jpabook.jpashop.repository;
 
 import jpabook.jpashop.domain.Member;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
 import java.util.List;
 
 @Repository
+@RequiredArgsConstructor
 public class MemberRepository {
 //    기술 설명
 //    @Repository : 스프링 빈으로 등록, JPA 예외를 스프링 기반 예외로 예외 변환
@@ -22,8 +21,9 @@ public class MemberRepository {
 //    findAll()
 //    findByName()
 
-    @PersistenceContext
-    EntityManager em;
+    // @PersistenceContext
+    // 생성자를 inject으로 넣어주었다.
+    private final EntityManager em;
 
     public void save(Member member) {
         em.persist(member);

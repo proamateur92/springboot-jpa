@@ -350,4 +350,35 @@ public class CategoryItem {
 
 **개발 순서: 서비스, 리포지토리 계층을 개발하고, 테스트 케이스를 작성해서 검증, 마지막에 웹 계층 적용**
 
-### 회원 도메인 개발
+### 개발 별 특이사항
+
+1. Order, OrderItem 레포티토리의 생성자 함수 생성
+
+> new 생성자 함수를 통해 객체를 생성하는 스타일을 지향하자.
+> 
+> new 생성자 함수 호출 방지를 위해
+> @NoArgsConstructor(access = AccessLevel.PROTECTED)
+
+<br>
+
+2. cascade
+
+> 도메인에서 (cascade = CascadeType.ALL)를 사용하면
+> 해당 객체 이하의 cascade가 명시된 객체도 persist 된다.
+> 
+> 즉, 본 프로젝트에서는 Order 주문이 persist되면 OrderItem, Delivery 모두 persist된다.
+> 다른 테이블에 영향을 주기 때문에 여러 부분을 고려하고 사용해야 한다.
+> OrderItem이나 Delivery가 다른 곳의 호출되거나 사용되어야 한다면 cascade 설정을 지워주도록 한다.
+
+<br>
+
+3. 디자인 패턴
+
+> - 도메인 모델 패턴 <br>
+> 엔티티가 핵심 비즈니스 로직을 갖고 서비스 계층이 위임을 맡는 패턴. <br>
+> (현재 Order, OrderItem 엔티티와 같은 패턴)
+> - 트랜잭션 스크립트 패턴 <br>
+> 서비스 계층에 핵심 비즈니스 로직을 갖는 패턴.
+> 
+> 무엇이 더 나은 패턴인지는 코드 품질에 대해 고민해보도록 하자.
+> 환경에 따라 두 패턴이 양립할 수도 있다.

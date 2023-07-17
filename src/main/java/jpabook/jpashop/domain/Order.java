@@ -1,6 +1,8 @@
 package jpabook.jpashop.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -11,6 +13,7 @@ import java.util.List;
 @Entity
 @Table(name = "orders") // order는 DB상 예약어이다.
 @Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
 
     @Id @GeneratedValue
@@ -20,6 +23,9 @@ public class Order {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id") // FK가 있는 곳에서 지정
     private Member member;  // 주문 회원
+
+    // CascadeType.ALL가 명시된 객체들은 Order가 persist될 때 모두 persist된다.
+    // Delivery, OrderItem 등의 엔티티가 다른 곳에서 참조되거나 중요한 경우에는 따로 repository를 만들어 persist 해 주도록 하자.
 
     // 주문과 상품은 N:M 관계
     // 따라서 중간에 OrderItem 테이블을 두었다.

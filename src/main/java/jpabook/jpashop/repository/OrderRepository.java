@@ -1,24 +1,24 @@
 package jpabook.jpashop.repository;
 
+import jpabook.jpashop.domain.Order;
 import jpabook.jpashop.domain.OrderItem;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class OrderItemRepository {
+public class OrderRepository {
 
     private final EntityManager em;
 
-    public void save(OrderItem orderItem) {
-        em.persist(orderItem);
+    public void save(Order order) {
+        em.persist(order);
     }
 
-    public OrderItem findOne(Long id) {
-        return em.find(OrderItem.class, id);
+    public Order findOne(Long id) {
+        return em.find(Order.class, id);
     }
 
 //    public List<OrderItem> findList(OrderSearch orderSearch) {}
